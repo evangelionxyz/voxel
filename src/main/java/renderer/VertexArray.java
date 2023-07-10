@@ -3,16 +3,15 @@ package renderer;
 import static org.lwjgl.opengl.GL30.*;
 import java.util.ArrayList;
 
-
 public class VertexArray {
 	private final int mVaoID;
 	private ArrayList<VertexBuffer> mVertexBuffer;
+	private IndexBuffer mIndexBuffer;
 	
 	public VertexArray() {
 		mVaoID = glGenVertexArrays();
 		glBindVertexArray(mVaoID);
 	}
-
 	public void addVertexBuffer(VertexBuffer vertexBuffer){
 		mVertexBuffer = new ArrayList<>();
 
@@ -37,9 +36,12 @@ public class VertexArray {
 	}
 
 	public void addIndexBuffer(IndexBuffer indexBuffer){
-        indexBuffer.bind();
+		mIndexBuffer = indexBuffer;
 	}
-	
+
+	public IndexBuffer getIndexBuffer(){
+		return mIndexBuffer;
+	}
 	public void bind() {
 		glBindVertexArray(mVaoID);
 	}

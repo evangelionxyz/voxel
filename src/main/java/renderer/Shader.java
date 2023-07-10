@@ -16,6 +16,12 @@ public class Shader {
 	private String mFilepath;
 	private int mRendererID;
 	private boolean mIsUsed = false;
+
+	public Shader(String vertexShaderPath, String fragmentShaderPath){
+		mVertexSrc = vertexShaderPath;
+		mFragmentSrc = fragmentShaderPath;
+		compile();
+	}
 	
 	public Shader(String path) {
 		this.mFilepath = path;

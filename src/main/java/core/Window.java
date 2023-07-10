@@ -47,7 +47,9 @@ public class Window {
 				Window.this.mHeight = height;
 			}
 		});
-
+		glfwSetScrollCallback(mWindow, Input::scrollCallback);
+		glfwSetCursorPosCallback(mWindow, Input::cursorPosCallback);
+		glfwSetMouseButtonCallback(mWindow, Input::mouseButtonCallback);
 		glfwSetKeyCallback(mWindow, Input::keyCallback);
 		
 		glfwMakeContextCurrent(mWindow);

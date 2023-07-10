@@ -44,11 +44,11 @@ public class Camera {
 	}
 
 	public void onUpdate(float deltaTime){
-		kyControl(deltaTime);
+		controller(deltaTime);
 		updateViewProjection();
 	}
 
-	private void kyControl(float deltaTime){
+	private void controller(float deltaTime){
 		Vector3f velocity = new Vector3f(0.0f, 0.0f, 0.0f);
 
 		if(Input.isKeyPressed(GLFW_KEY_A))
@@ -59,11 +59,8 @@ public class Camera {
 			velocity.y += mMoveSpeed * deltaTime;
 		else if(Input.isKeyPressed(GLFW_KEY_S))
 			velocity.y -= mMoveSpeed * deltaTime;
-		if(Input.isKeyPressed(GLFW_KEY_Q))
-			velocity.z += 2.0f * deltaTime;
-		else if(Input.isKeyPressed(GLFW_KEY_E))
-			velocity.z -= 2.0f * deltaTime;
 
+		velocity.z += Input.getMouseSrollY() * 0.4f;
 		mPosition.lerp(mPosition, deltaTime, mPosition.add(velocity));
 	}
 }
