@@ -1,36 +1,50 @@
 package renderer;
 
 import core.Input;
-import org.joml.Vector3f;
+import org.joml.*;
 
 import java.util.ArrayList;
 
-import static org.lwjgl.glfw.GLFW.*;
-
 public class Scene {
-	private Camera camera;
-	private Cube cube;
-	private ArrayList<Cube> cubes = new ArrayList<>();
+	private Camera camera = new Camera(30.0f, 16.0f / 9.0f, 0.1f, 1000.0f);
+	private Texture2D blockTexture;
+	private ArrayList<Cube>  cubes;
 
 	public Scene(){
 		Renderer.enableDepthTest();
 		Renderer.enableBlend();
 
-		camera = new Camera(30.0f, 16.0f / 9.0f, 0.1f, 1000.0f);
-		cube = new Cube(new Vector3f(-1.0f, 2.f, 0.0f), "assets/textures/checkerboard.jpg");
+		camera.setPosition(new Vector3f(0.0f, 2.0f, 10.0f));
 
-		float mapSizeX = 10;
-		for(float x = -mapSizeX; x < mapSizeX; x++)
-			for(float z = -mapSizeX; z < mapSizeX; z++)
-				cubes.add(new Cube(new Vector3f(x, 0.0f, z / 2.0f), "assets/textures/block.png"));
+		cubes = new ArrayList<>();
+		blockTexture = new Texture2D("assets/textures/block.png");
+
+		float mapSize = 10.0f;
+		float mapHeight = 2.0f;
+		for(float x = -mapSize; x < mapSize; x++){
+			for(float z = -mapSize; z < mapSize; z++) {
+				for(float y = 0; y < mapHeight; y++){
+					if(y % 3 == 0)
+					{
+						cubes.add(new Cube(new Vector3f(x, y, z), blockTexture));
+					}
+					else
+					{
+						Vector4f color = new Vector4f((x / mapSize),0.0f, (z / mapSize), 1.0f);
+						//color.sub(1.0f, 0.0f, 1.0f, 1.0f);
+						cubes.add(new Cube(new Vector3f(x, y, z), color));
+					}
+				}
+			}
+		}
 	}
 	
 	public void update(float deltaTime) {
 		camera.onUpdate(deltaTime);
-		cube.render(camera.getViewProjection());
 
-		for(Cube c : cubes)
-			c.render(camera.getViewProjection());
+		for(Cube cube : cubes){
+			cube.render(camera.getViewProjection());
+		}
 
 		Input.endFrame();
 	}

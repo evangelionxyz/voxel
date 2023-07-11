@@ -11,7 +11,6 @@ public class BufferLayout {
         calculateOffsetAndStride();
     }
 
-
     public void calculateOffsetAndStride(){
         int offset = 0;
         Stride = 0;

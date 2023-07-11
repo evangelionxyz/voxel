@@ -1,7 +1,6 @@
 package core;
 
 import org.joml.Vector2f;
-import org.joml.Vector3f;
 
 import static org.lwjgl.glfw.GLFW.*;
 
@@ -63,8 +62,12 @@ public class Input {
         return get().scrollY;
     }
 
-    public static Vector2f getCursorPos(){
-        return get().cursorPos;
+    public static float getMouseX(){
+        return get().cursorPos.x;
+    }
+
+    public static float getMouseY(){
+        return get().cursorPos.y;
     }
 
     public static void endFrame(){
