@@ -1,6 +1,6 @@
 package core;
+import org.joml.Vector4f;
 import renderer.*;
-import math.*;
 
 public class Application {
 	private Window window;
@@ -16,7 +16,7 @@ public class Application {
 		while(window.isRunning()) {
 			Timestep.update();
 
-			Renderer.clearColor(new Vector4(0.9f, 0.9f, 0.9f, 1.0f));
+			Renderer.clearColor(new Vector4f(0.9f, 0.9f, 0.9f, 1.0f));
 			Renderer.clear();
 
 			// Render Here

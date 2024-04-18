@@ -44,7 +44,7 @@ public class Camera {
 		m_InitialMousePosition = new Vector2f();
 		m_ViewportWidth = 1280.0f;
 		m_ViewportHeight = 720.0f;
-		m_MoveSpeed = 1.0f;
+		m_MoveSpeed = 5.0f;
 
 		updateProjection();
 		updateView();

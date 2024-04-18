@@ -1,5 +1,6 @@
 package renderer;
-import math.*;
+import org.joml.Vector4f;
+
 import static org.lwjgl.opengl.GL11.*;
 
 public class Renderer {
@@ -17,7 +18,7 @@ public class Renderer {
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	}
 	
-	public static void clearColor(Vector4 color) {
+	public static void clearColor(Vector4f color) {
 		glClearColor(color.x, color.y, color.z, color.w);		
 	}
 	
