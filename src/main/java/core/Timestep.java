@@ -5,7 +5,6 @@ import java.text.DecimalFormat;
 
 public class Timestep {
 	private static float currentTime = 0.0f;
-	
     public static float deltaTime = 0.0f;
     public static float second = 0.0f;
     public static float millisecond = 0.0f;
@@ -13,11 +12,9 @@ public class Timestep {
     public static void update() {
     	float time = second = (float)GLFW.glfwGetTime();
     	millisecond = second * 1000.0f;
-    	
-        float timestep = time - currentTime;
-        currentTime = time;
 
-        deltaTime = timestep;
+        deltaTime  = time - currentTime;
+        currentTime = time;
     }
     
     public static String secondToString() {

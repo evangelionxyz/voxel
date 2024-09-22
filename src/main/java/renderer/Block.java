@@ -26,19 +26,30 @@ public class Block {
     {
         switch (face)
         {
-            case 4: drawFront(texture, shader); break;
-            case 5: drawBack(texture, shader); break;
-            case 1: drawLeft(texture, shader); break;
-            case 0: drawRight(texture, shader); break;
-            case 2: drawTop(texture, shader); break;
-            case 3: drawBottom(texture, shader); break;
+            case 0:
+                drawRight(texture, shader);
+                break;
+            case 1:
+                drawLeft(texture, shader);
+                break;
+            case 2:
+                drawTop(texture, shader);
+                break;
+            case 3:
+                drawBottom(texture, shader);
+                break;
+            case 4:
+                drawFront(texture, shader);
+                break;
+            case 5:
+                drawBack(texture, shader);
+                break;
         }
     }
 
     public void drawFront(Texture2D texture, Shader shader) {
         Matrix4f transform = new Matrix4f();
-        transform.setTranslation(front.Position)
-                        .setRotationXYZ(front.Rotation.x, front.Rotation.y, front.Rotation.z);
+        transform.setTranslation(front.Position).setRotationXYZ(front.Rotation.x, front.Rotation.y, front.Rotation.z);
         shader.setMatrix("uTransform", transform);
         texture.bind();
         shader.setInt("uTexture", texture.getID());
@@ -47,8 +58,7 @@ public class Block {
 
     public void drawBack(Texture2D texture, Shader shader) {
         Matrix4f transform = new Matrix4f();
-        transform.setTranslation(back.Position)
-                .setRotationXYZ(back.Rotation.x, back.Rotation.y, back.Rotation.z);
+        transform.setTranslation(back.Position).setRotationXYZ(back.Rotation.x, back.Rotation.y, back.Rotation.z);
         shader.setMatrix("uTransform", transform);
         shader.setInt("uTexture", texture.getID());
         back.draw();
@@ -56,8 +66,7 @@ public class Block {
 
     public void drawLeft(Texture2D texture, Shader shader) {
         Matrix4f transform = new Matrix4f();
-        transform.setTranslation(left.Position)
-                .setRotationXYZ(left.Rotation.x, left.Rotation.y, left.Rotation.z);
+        transform.setTranslation(left.Position).setRotationXYZ(left.Rotation.x, left.Rotation.y, left.Rotation.z);
         shader.setMatrix("uTransform", transform);
         shader.setInt("uTexture", texture.getID());
         left.draw();
@@ -65,8 +74,7 @@ public class Block {
 
     public void drawRight(Texture2D texture, Shader shader) {
         Matrix4f transform = new Matrix4f();
-        transform.setTranslation(right.Position)
-                .setRotationXYZ(right.Rotation.x, right.Rotation.y, right.Rotation.z);
+        transform.setTranslation(right.Position).setRotationXYZ(right.Rotation.x, right.Rotation.y, right.Rotation.z);
         shader.setMatrix("uTransform", transform);
         shader.setInt("uTexture", texture.getID());
         right.draw();
@@ -74,8 +82,7 @@ public class Block {
 
     public void drawTop(Texture2D texture, Shader shader) {
         Matrix4f transform = new Matrix4f();
-        transform.setTranslation(top.Position)
-                .setRotationXYZ(top.Rotation.x, top.Rotation.y, top.Rotation.z);
+        transform.setTranslation(top.Position).setRotationXYZ(top.Rotation.x, top.Rotation.y, top.Rotation.z);
         shader.setMatrix("uTransform", transform);
         shader.setInt("uTexture", texture.getID());
         top.draw();
@@ -83,11 +90,9 @@ public class Block {
 
     public void drawBottom(Texture2D texture, Shader shader) {
         Matrix4f transform = new Matrix4f();
-        transform.setTranslation(bottom.Position)
-                .setRotationXYZ(bottom.Rotation.x, bottom.Rotation.y, bottom.Rotation.z);
+        transform.setTranslation(bottom.Position).setRotationXYZ(bottom.Rotation.x, bottom.Rotation.y, bottom.Rotation.z);
         shader.setMatrix("uTransform", transform);
         shader.setInt("uTexture", texture.getID());
         bottom.draw();
     }
-
 }

@@ -8,12 +8,10 @@ import java.util.ArrayList;
 import static org.lwjgl.opengl.GL11C.*;
 
 public class Chunk {
-    private final int SIZE = 16;
-    private final int HEIGHT = 16;
+    private final int SIZE = 8;
     private Vector3f position;
-    private Block[][][] blocks = new Block[SIZE][HEIGHT][SIZE];
+    private Block[][][] blocks = new Block[SIZE][SIZE][SIZE];
     private Texture2D texture;
-
     private int[][] FACE_OFFSETS;
 
     public Chunk(Vector3f pos, ArrayList<Float> noises) {
@@ -36,17 +34,10 @@ public class Chunk {
                 int globalX = (int)position.x * SIZE + x;
 
                 float noiseValue = noises.get(x + z * SIZE);
-                int height = (int)((noiseValue + 1.0f) * 0.5f * HEIGHT);
-                for(int y = 0; y < HEIGHT; y++) {
-                    int globalY = (int)position.y * HEIGHT + y;
-                    if(y < height)
-                    {
-                        blocks[x][y][z] = new Block(new Vector3f(globalX, globalY, globalZ),  BlockType.Dirt);
-                    }
-                    else
-                    {
-                        blocks[x][y][z] = new Block(new Vector3f(globalX, globalY, globalZ),  BlockType.Air);
-                    }
+                int height = (int)((noiseValue + 1.0f) * 0.5f * SIZE);
+                for(int y = 0; y < SIZE; y++) {
+                    int globalY = (int)position.y * SIZE + y;
+                    blocks[x][y][z] = new Block(new Vector3f(globalX, globalY, globalZ),  BlockType.Dirt);
                 }
             }
         }
@@ -61,7 +52,7 @@ public class Chunk {
 
         for(int x = 0; x < SIZE; x++) {
             for(int z = 0; z < SIZE; z++) {
-                for(int y = 0; y < HEIGHT; y++) {
+                for(int y = 0; y < SIZE; y++) {
                     Block block = blocks[x][y][z];
 
                     if(block.type == BlockType.Air) {
@@ -75,15 +66,16 @@ public class Chunk {
                         int nz = (int)block.position.z + FACE_OFFSETS[face][2];
 
                         if (nx < position.x * SIZE || nx >= SIZE * (position.x + 1)
-                                || ny < 0 || ny >= SIZE
-                                || nz < position.z * SIZE || nz >= SIZE * (position.z + 1)) {
+                            || ny < 0 || ny >= SIZE
+                            || nz < position.z * SIZE || nz >= SIZE * (position.z + 1)) {
                             block.drawFace(face, texture, shader);
                         }
                         else
                         {
                             Block neighborBlock = blocks[nx % SIZE][ny][nz % SIZE];
-                            if (neighborBlock.type == BlockType.Air)
+                            if (neighborBlock.type == BlockType.Air) {
                                 block.drawFace(face, texture, shader);
+                            }
                         }
                     }
                 }

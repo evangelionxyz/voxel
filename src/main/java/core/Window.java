@@ -10,12 +10,14 @@ import static org.lwjgl.system.MemoryStack.*;
 import static org.lwjgl.glfw.GLFW.*;
 
 public class Window {
-	
 	private long mWindow;
+
 	private String mTitle;
+    private float mTitleUpdateTime = 0.0f;
+
 	private int mWidth = 860, mHeight = 480;
 	private boolean mVSync;
-	
+
 	public Window(String title, boolean vSync) {
 		mTitle = title;
 		mVSync = vSync;
@@ -47,6 +49,7 @@ public class Window {
 				Window.this.mHeight = height;
 			}
 		});
+
 		glfwSetScrollCallback(mWindow, Input::scrollCallback);
 		glfwSetCursorPosCallback(mWindow, Input::cursorPosCallback);
 		glfwSetMouseButtonCallback(mWindow, Input::mouseButtonCallback);
@@ -58,17 +61,23 @@ public class Window {
 		GL.createCapabilities();
 	}
 	
-	public void update() {
-		ApplyVSync();
+	public void update(float dt) {
 		glfwPollEvents();
-		glfwSwapBuffers(mWindow);		
+		glfwSwapBuffers(mWindow);
+		updateTitle(dt);
 	}
 	
 	private void ApplyVSync() {
-		if(mVSync)
-			glfwSwapInterval(1);
-		else
-			glfwSwapInterval(0);
+		glfwSwapInterval(mVSync ? 1 : 0);
+	}
+
+	private void updateTitle(float dt) {
+        float mTitleUpdateInterval = 1.5f;
+        if ((mTitleUpdateTime += dt) > mTitleUpdateInterval){
+			mTitle = "Voxel " + 1.0f / dt + " FPS";
+			glfwSetWindowTitle(mWindow, mTitle);
+			mTitleUpdateTime = 0.0f;
+		}
 	}
 	
 	public float getWidth() {
@@ -81,6 +90,7 @@ public class Window {
 	
 	public void SetVSync(boolean enable) {
 		mVSync = enable;
+		ApplyVSync();
 	}
 	
 	public boolean isRunning() {

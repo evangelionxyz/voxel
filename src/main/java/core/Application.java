@@ -21,7 +21,7 @@ public class Application {
 
 			// Render Here
 			scene.update(Timestep.deltaTime);
-			window.update();
+			window.update(Timestep.deltaTime);
 
 			scene.resize(window.getWidth(), window.getHeight());
 		}

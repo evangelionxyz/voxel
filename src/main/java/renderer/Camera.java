@@ -114,7 +114,7 @@ public class Camera {
 				velocity.sub(getUpDirection());
 		}
 
-		float speed = 2.2f;
+		float speed = 5.2f;
 		m_Position.x += velocity.x * speed * deltaTime;
 		m_Position.y += velocity.y * speed * deltaTime;
 		m_Position.z += velocity.z * speed * deltaTime;
